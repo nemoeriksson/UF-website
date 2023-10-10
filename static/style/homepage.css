@@ -1,0 +1,26 @@
+.welcomeSection{
+    background: url("/images/trees.jpg");
+    background-size: cover;
+    background-position: 50% 70%;
+    height: 100%;
+    position: relative;
+}
+
+.welcomeSection::before{
+    content: ' ';
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    position: absolute;
+}
+
+.scrollDownIcon{
+    background: url("/images/svgs/chevron-down.svg");
+    background-size: cover;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 45px;
+    aspect-ratio: 1;
+}
