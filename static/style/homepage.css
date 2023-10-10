@@ -10,8 +10,30 @@
     content: ' ';
     height: 100%;
     width: 100%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    background: linear-gradient(to top, rgba(var(--black-rgb), 1), rgba(var(--black-rgb), 0));
     position: absolute;
+}
+
+.contentContainer{
+    position: absolute;
+    top: 80%;
+    left: 7%;
+    transform: translateY(-50%);
+}
+
+.contentContainer .title, 
+.contentContainer .description{
+    width: fit-content;
+    color: var(--white);
+}
+
+.contentContainer .title{
+    font-size: 2em;
+}
+
+.contentContainer .description{
+    margin-left: 20px;
+    max-width: min(420px, calc(100% - 40px));
 }
 
 .scrollDownIcon{
