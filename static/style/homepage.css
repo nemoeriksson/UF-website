@@ -237,6 +237,7 @@ main > div{
     top: 0;
     left: 0;
     z-index: 1;
+    border-radius: 5px;
 }
 
 .stackedContainer .visibleContainer p{

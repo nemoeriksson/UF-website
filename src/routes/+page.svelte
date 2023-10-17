@@ -138,7 +138,7 @@ function swipeImage(e:any){
                     {#if images}
                         {#each images as image, index}
                             <div class="visibleContainer" bind:this={stackedImageElements[index]} class:hidden={index!=currentStackIndex}
-                                use:swipe={{timeframe:250, minSwipeDistance:150, touchAction: 'pan-y'}} 
+                                use:swipe={{timeframe:300, minSwipeDistance:50, touchAction: 'pan-y'}} 
                                 on:swipe={swipeImage}>
                                 <div draggable="false" class="image" style={`background: url("images/${image.src}"); background-size: cover; background-position-x: 50%;`}></div>
                                 <p class="description">[img{index}] {image.description}</p>
