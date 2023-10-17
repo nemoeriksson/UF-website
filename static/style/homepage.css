@@ -1,9 +1,20 @@
+main{
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100%;
+}
+main > div{
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+}
+
 .container{
     background: url("/images/trees.jpg");
     background-size: cover;
     background-position: 50% 70%;
     height: 100%;
     position: relative;
+    z-index: 2;
 }
 
 .container::before{
@@ -12,6 +23,7 @@
     width: 100%;
     background: linear-gradient(to top, rgba(var(--black-rgb), 1), rgba(var(--black-rgb), 0));
     position: absolute;
+    bottom: -5px;
 }
 
 .contentContainer{
@@ -56,6 +68,7 @@
     transform: translateY(50%);
     width: fit-content;
     cursor: pointer;
+    user-select: none;
 }
 
 .scrollContainer .scrollIcon{
@@ -64,4 +77,226 @@
     width: 45px;
     aspect-ratio: 1;
     cursor: pointer;
+}
+
+.about{
+    height: 100vh;
+    background: var(--black);
+    position: relative;
+    z-index: 1;
+    overflow-x: hidden;
+}
+
+.about .title{
+    color: var(--white);
+    position: relative;
+    top: 11%;
+    left: 7%;
+    font-size: 2em;
+    display: block;
+}
+
+.about .underline{
+    height: 1px;
+    width: 40%;
+    border-radius: 2px;
+    position: relative;
+    left: 50%;
+    top: 12%;
+    transform: translateX(-50%);
+    background: rgba(var(--white-rgb), .75);
+}
+
+.about .content{
+    background: var(--white);
+    height: 75%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+}
+
+.about .content header{
+    height: 60px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 1.15em;
+    user-select: none;
+}
+
+.about .content header > span{
+    font-weight: 500;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+}
+
+.about .content header > span span{
+    cursor: pointer;
+}
+
+.about .content header span .dash{
+    width: 0px;
+    height: 2px;
+    background: var(--black);
+    cursor: pointer;
+}
+
+.dash.active{
+    animation: 250ms slideSpawn forwards;
+}
+
+.transformContainer{
+    height: 60%;
+    width: max-content;
+    position: relative;
+    left: 35%;
+    top: 10%;
+    display: block;
+    user-select: none;
+}
+
+.horizontalScrollContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.horizontalScrollContainer .image{
+    height: 100%;
+    aspect-ratio: 3/4;
+    background-size: cover;
+    position: relative;
+    border-radius: 5px;
+    margin-right: 2.5%;
+}
+
+.image::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transition: 250ms all;
+    background: linear-gradient(to top, var(--black), transparent 50%);
+    background-size: 150% 150%;
+    background-position-y: 0;
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.image:hover::before,
+.image:focus::before{
+    background-position-y: 100%;
+}
+
+.image p{
+    color: var(--white);
+    z-index: 3;
+    bottom: 18px;
+    left: 12px;
+    position: absolute;
+    width: calc(100% - 24px);
+    display: inline-block;
+}
+
+.image p span{
+    opacity: 0;
+    display: inline-block;
+    margin-right: 4px;
+    font-size: 1.1em;
+}
+
+.image:hover p span,
+.image:focus p span{
+    animation: 350ms popup forwards;
+}
+
+.stackedContainer{
+    height: 60%;
+    aspect-ratio: 3/4;
+    position: relative;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.stackedContainer .image{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.stackedContainer .visibleContainer p{
+    color: var(--white);
+    z-index: 3;
+    bottom: 18px;
+    left: 12px;
+    position: absolute;
+    width: calc(100% - 24px);
+    display: inline-block;
+    font-size: 0.85em;
+}
+
+.stackedContainer .visibleContainer .image::before{
+    background-size: cover;
+}
+
+@media only screen and (max-width: 600px) and (orientation: portrait){
+    .about .title{
+        width: 100%;
+        text-align: center;
+        left: 0;
+    }
+
+    .about .content{
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .arrow{
+        height: 50%;
+        width: 50px;
+        background: red;
+        position: absolute;
+        top: calc(10% + 60px);
+    }
+    .arrow.left{
+        left: 0;
+    }
+    .arrow.right{
+        right: 0;
+    }
+}
+
+@keyframes slideSpawn {
+    from{
+        width: 0;
+    }
+    to{
+        width: 40px;
+    }
+}
+
+@keyframes popup {
+    from{
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0px);
+    }
 }

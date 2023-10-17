@@ -5,29 +5,31 @@ import { browser } from "$app/environment";
 import { enhance } from "$app/forms";
 import { fly } from "svelte/transition";
 let showDropdown = false;
-let tab = 'login';
 
-if (browser){
-    let url = window.location.href;
-    let splits = url.split('/')
-    let ending = splits[splits.length-1].split('#');
-    try{
-        tab = (ending[1]=='register') ? 'register' : 'login';
-    } catch (error) {
-        tab = 'login'; 
+function getTab(){
+    let tab:string = 'login';
+    if (browser){
+        let url = window.location.href;
+        let splits = url.split('/')
+        let ending = splits[splits.length-1].split('#');
+        try{
+            tab = (ending[1]=='register') ? 'register' : 'login';
+        } catch (error) {
+            tab = 'login'; 
+        }
     }
+    return tab;
 }
 
 export let form;
 
+$: tab = form?.login_required?.toString()=='true' ? 'login' : getTab(); 
 </script>
 
 <nav>
     <a href="/" class="companyName">Screaming Plant UF</a>
     <div class="links nonMobile">
         <a href="/">Home</a>
-        <a href="#">About Us</a>
-        <a href="#">Products</a>
     </div>
     <div class="hamburgerMenu mobileOnly" aria-hidden="true"
         on:click={()=>{showDropdown=!showDropdown}} 
@@ -43,8 +45,6 @@ export let form;
     <div class="dropdown mobileOnly"
         transition:fly={{y:-150, duration: 350}}>
         <a href="/">Home</a>
-        <a href="#">Products</a>
-        <a href="#">Register</a>
     </div>
 {/if}
 
@@ -52,7 +52,7 @@ export let form;
     <div class="contentContainer">
         <div class="tabs">
             <div class="tab logo nonMobile">
-                <span class="font1">[logo]</span>
+                <span class="font1">&nbsp;Screaming<br>Plant UF</span>
             </div>
             <div class="tab" class:active={tab=='login'} on:click={()=>{tab='login'}} on:keyup={()=>{tab='login'}} aria-hidden='true'>
                 <div class="icon"></div>
@@ -75,7 +75,7 @@ export let form;
                         {/if}
                         <div class="input">
                             <div class="icon"></div>
-                            <input type="email" name="email" placeholder="Email" required>
+                            <input type="text" name="email" placeholder="Email" required>
                         </div>
                     </div>
                     <div class="inputField">
@@ -88,7 +88,11 @@ export let form;
                         </div>
                     </div>
                 </div>
-                <span class="remember"><input type="checkbox" name="remember" id="remember"><label for="remember">Remember this device</label></span>
+                <span class="remember">
+                    <input type="checkbox" name="remember" id="remember">
+                    <label for="remember">Remember this device</label>
+                    <div class="helpIcon nonMobile" title="You wont have to login each time visiting the page for the next 14 days"></div>
+                </span>
                 <button type="submit">Sign in</button>
             </form>
         </div>
@@ -105,7 +109,7 @@ export let form;
                         {/if}
                         <div class="input">
                             <div class="icon"></div>
-                            <input type="email" name="email" placeholder="Email" required>
+                            <input type="text" name="email" placeholder="Email" required>
                         </div>
                     </div>
                     <div class="inputField">
@@ -119,7 +123,7 @@ export let form;
                     </div>
                 </div>
                 <div class="requirements">
-                    <p> - 12 Characters long</p>
+                    <p> - 8 Characters long</p>
                     <p> - Lower and uppcase letters</p>
                     <p> - Atleast 1 number</p>
                 </div>

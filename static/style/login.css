@@ -50,6 +50,9 @@
     height: 80px;
     display: flex;
     justify-content: center;
+    text-align: center;
+    line-height: 17px;
+    user-select: none;
 }
 
 .tabs .tab.active{
@@ -168,6 +171,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    width: fit-content;
 }
 
 .formContainer form span.remember input{
@@ -186,6 +190,14 @@
     font-size: 1.1em;
     font-weight: 500;
     cursor: pointer;
+}
+
+.formContainer form span.remember .helpIcon{
+    height: 16px;
+    aspect-ratio: 1;
+    background: url("/images/svgs/help-circle.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .formContainer button{
