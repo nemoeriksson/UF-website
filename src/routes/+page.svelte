@@ -111,11 +111,11 @@ function swipeImage(e:any){
             <header draggable="false" unselectable="on">
                 <span>
                     <span on:click={()=>{aboutTab='development'}}>Development</span>
-                    <div class="dash" class:active={aboutTab=='development'}></div>
+                    <div class="dash" class:active={aboutTab=='development'} class:deactive={aboutTab=='idea'}></div>
                 </span>
                 <span>
                     <span on:click={()=>{aboutTab='idea';transformPercent=0}}>Our Idea</span>
-                    <div class="dash" class:active={aboutTab=='idea'}></div>
+                    <div class="dash" class:active={aboutTab=='idea'} class:deactive={aboutTab=='development'}></div>
                 </span>
             </header>
             {#if aboutTab=='development'}
@@ -142,6 +142,11 @@ function swipeImage(e:any){
                                 on:swipe={swipeImage}>
                                 <div draggable="false" class="image" style={`background: url("images/${image.src}"); background-size: cover; background-position-x: 50%;`}></div>
                                 <p class="description">[img{index}] {image.description}</p>
+                                <div class="sliderContainer">
+                                    {#each {length: images.length} as _, index2}
+                                        <span class="dot" class:full={index==index2}></span>
+                                    {/each}
+                                </div>
                             </div>
                         {/each}
                     {/if}

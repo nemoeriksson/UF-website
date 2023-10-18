@@ -58,6 +58,24 @@ nav .links a{
     padding: 5px 10px;
     letter-spacing: 1px;
     font-size: 1em;
+    position: relative;
+}
+
+nav .links a::before{
+    content: '';
+    width: 0;
+    height: 1px;
+    background: var(--white);
+    display: block;
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 250ms all;
+}
+
+nav .links a:hover::before{
+    width: 40px;
 }
 
 nav .hamburgerMenu{
