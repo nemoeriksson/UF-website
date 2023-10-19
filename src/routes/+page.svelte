@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/style/homepage.css">
+<title>Screaming Plant | Homepage</title>
 
 <script lang="ts">
 import { onMount } from "svelte";

@@ -1,10 +1,15 @@
 <link rel="stylesheet" href="/style/login.css">
+<title>Screaming Plant | {capitalize(tab)}</title>
 
 <script lang="ts">
 import { browser } from "$app/environment";
 import { enhance } from "$app/forms";
 import { fly } from "svelte/transition";
 let showDropdown = false;
+
+function capitalize(original:string){
+    return original[0].toUpperCase() + original.slice(1);
+}
 
 function getTab(){
     let tab:string = 'login';
