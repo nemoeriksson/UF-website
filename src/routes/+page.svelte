@@ -19,6 +19,7 @@ let transformElement:HTMLElement;
 let horizontalSensitivity = 5;
 let currentStackIndex = 0;
 
+// Loads image sources and descriptions from ´data.json´
 onMount(async()=>{
     await fetch('/data.json').then(response=>response.json()).then(json => {images = json['imageData'];});
 });
@@ -34,18 +35,30 @@ function mousePressStart(e:MouseEvent){
     }
 }
 
+/**
+ * Handles mouse movement for transforming elements in the "about" tab when in the "development" section.
+ * This function calculates and applies a horizontal transformation to elements when the mouse is dragged 
+ * in the "development" section of the "about" tab.
+ *
+ * @param e - The MouseEvent object representing the mouse event.
+ */
 function moveTransform(e:MouseEvent){
     if(aboutTab == 'development' && mouseDown){
+        // Calculate the percentage of movement based on mouse position and sensitivity.
         let movePercent = Math.min(Math.max((e.clientX - mouseDownX) / window.innerWidth * horizontalSensitivity, -100), 100);
         let fromPercent = transformPercent;
+        
+        // Update the transformation percentage while keeping it within specified range.
         transformPercent = Math.min(Math.max(movePercent + transformPercent, -100), 0);
+        
         transformElement.animate([
             {transform: `translateX(${fromPercent}%)`},
             {transform: `translateX(${transformPercent}%)`}
         ], {
             duration: 100,
             fill: 'forwards'
-        })
+        });
+
         imageElements.forEach(img=>{
             img.animate([
                 {backgroundPositionX: `${-transformPercent}%`}
@@ -60,7 +73,7 @@ function moveTransform(e:MouseEvent){
 function swipeImage(e:any){
     let direction = e.detail.direction;
     let change = direction == 'left' ? 1 : -1;
-    currentStackIndex = (currentStackIndex+change+stackedImageElements.length)%stackedImageElements.length;
+    currentStackIndex = (currentStackIndex + change + stackedImageElements.length) % stackedImageElements.length;
 }
 </script>
 
@@ -111,11 +124,11 @@ function swipeImage(e:any){
         aria-hidden="true">
             <header draggable="false" unselectable="on">
                 <span>
-                    <span on:click={()=>{aboutTab='development'}}>Development</span>
+                    <span on:click={()=>{aboutTab='development'}} aria-hidden="true">Development</span>
                     <div class="dash" class:active={aboutTab=='development'} class:deactive={aboutTab=='idea'}></div>
                 </span>
                 <span>
-                    <span on:click={()=>{aboutTab='idea';transformPercent=0}}>Our Idea</span>
+                    <span on:click={()=>{aboutTab='idea';transformPercent=0}} aria-hidden="true">Our Idea</span>
                     <div class="dash" class:active={aboutTab=='idea'} class:deactive={aboutTab=='development'}></div>
                 </span>
             </header>
@@ -141,8 +154,12 @@ function swipeImage(e:any){
                             <div class="visibleContainer" bind:this={stackedImageElements[index]} class:hidden={index!=currentStackIndex}
                                 use:swipe={{timeframe:300, minSwipeDistance:50, touchAction: 'pan-y'}} 
                                 on:swipe={swipeImage}>
-                                <div draggable="false" class="image" style={`background: url("images/${image.src}"); background-size: cover; background-position-x: 50%;`}></div>
-                                <p class="description">[img{index}] {image.description}</p>
+                                <div draggable="false" class="image" style={
+                                `background: url("images/${image.src}"); 
+                                background-size: cover; 
+                                background-position-x: ${typeof image.offset != 'undefined' ? image.offset : 50}%;`}>
+                                </div>
+                                <p class="description">{image.description}</p>
                                 <div class="sliderContainer">
                                     {#each {length: images.length} as _, index2}
                                         <span class="dot" class:full={index==index2}></span>

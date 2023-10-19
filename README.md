@@ -7,7 +7,7 @@ This is a project where students get to start a company for one school year and 
 
 This website will both work as an artificial webshop or about page where users can find the product and read more about it but it also has a login feature where users can change notification sounds, intervals and other settings for their device.
 
-The name _"Screaming Plant"_ comes from the initial idea of making the device play a screaming sounds whenever it needs to be watered.
+The name _"Screaming Plant"_ comes from the initial idea of making the device play a screaming sound whenever it needs to be watered.
 
 ## Installation
 

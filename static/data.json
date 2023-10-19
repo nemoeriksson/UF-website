@@ -1,12 +1,14 @@
 {
     "imageData": [
         {
-            "src": "trees.jpg",
-            "description": "Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum "
+            "src": "/collection/code.png",
+            "description": "This website is made using Svelte and most code is written in HTML, CSS or Typescript",
+            "offset": 0
         },
         {
-            "src": "trees.jpg",
-            "description": "Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum "
+            "src": "/collection/github.png",
+            "description": "This website is open source, meaning that all code is available on GitHub for the public to look at and improve",
+            "offset": 0
         },
         {
             "src": "trees.jpg",
