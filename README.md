@@ -29,29 +29,15 @@ _Below are instructions for installing the repo and some good commands to know f
     ```sh
     npm install
     ```
-3. Run development website on localhost
-    ```sh
-    npm run dev
-    ```
-4. Host development website _(optional)_
-    ```sh
-    npm run host
-    ```
 
-#### Prisma database commands
-Open database interface in browser
+3. Create `.env` file  with the following:
 ```sh
-npx prisma studio
+DATABASE_URL = 'file:./dev.db'
 ```
 
-Pushing changes made in `schema.prisma`
+4. Generate database
 ```sh
-npx prisma db push
-```
-
-Resetting database
-```sh
-npx prisma migrate reset
+npx prisma generate
 npx prisma db push
 ```
     

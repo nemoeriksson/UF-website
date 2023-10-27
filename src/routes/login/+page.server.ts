@@ -45,12 +45,14 @@ const defaultSettings = {
  */
 export const load = (async ({cookies}) => {
     let sessionKey = cookies.get('session');
-    const user = await prisma.user.findUnique({where: {
-        session: sessionKey
-    }});
+    if(typeof sessionKey !== 'undefined'){
+        const user = await prisma.user.findUnique({where: {
+            session: sessionKey
+        }});
 
-    if(typeof sessionKey !== 'undefined' && user?.session){
-        throw redirect(302, '/user');
+        if(user?.session){
+            throw redirect(302, '/user');
+        }
     }
     
     return {};
@@ -135,6 +137,6 @@ export const actions: Actions = {
         }});
 
         // Returns fail with data for the client to know that they have to log in to continue
-        return fail(401, {login_required: 'true'}); 
+        return fail(401, {login_required: 'true', email_login: 'Login required to continue'}); 
     }
 };

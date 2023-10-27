@@ -28,7 +28,7 @@ function getTab(){
 
 export let form;
 
-$: tab = form?.login_required?.toString()=='true' ? 'login' : getTab(); 
+$: tab = form?.login_required?.toString()=='true' ? 'login' : (form?.email_reg || form?.pw_reg) ? 'register' : getTab(); 
 </script>
 
 <nav>
@@ -55,7 +55,7 @@ $: tab = form?.login_required?.toString()=='true' ? 'login' : getTab();
 
 <div class="container">
     <div class="contentContainer">
-        <div class="tabs">
+        <div class="tabs nonMobile">
             <div class="tab logo nonMobile">
                 <span class="font1">&nbsp;Screaming<br>Plant UF</span>
             </div>
@@ -71,7 +71,7 @@ $: tab = form?.login_required?.toString()=='true' ? 'login' : getTab();
         {#if tab == 'login'}
         <div class="formContainer login">
             <p class="title">Sign In</p>
-            <p class="description">Welcome back to Screaming Plant UF, sign in to your account to continue.</p>
+            <p class="description">Welcome back to Screaming Plant UF. Sign in to your account to continue.</p>
             <form method="post" action="?/login" use:enhance>
                 <div>
                     <div class="inputField">
@@ -98,7 +98,12 @@ $: tab = form?.login_required?.toString()=='true' ? 'login' : getTab();
                     <label for="remember">Remember this device</label>
                     <div class="helpIcon nonMobile" title="You wont have to login each time visiting the page for the next 14 days"></div>
                 </span>
-                <button type="submit">Sign in</button>
+                <div> 
+                    <button type="submit">Sign in</button>
+                    <p class="mobileOnly">
+                        Or <span on:click={()=>{tab='register'}} on:keyup={()=>{tab='register'}} aria-hidden='true'>register</span> a new account
+                    </p> 
+                </div>
             </form>
         </div>
         {/if}
@@ -132,7 +137,12 @@ $: tab = form?.login_required?.toString()=='true' ? 'login' : getTab();
                     <p> - Lower and uppcase letters</p>
                     <p> - Atleast 1 number</p>
                 </div>
-                <button type="submit">Register</button>
+                <div> 
+                    <button type="submit">Register</button>
+                    <p class="mobileOnly">
+                        Or <span on:click={()=>{tab='login'}} on:keyup={()=>{tab='register'}} aria-hidden='true'>sign in</span> to existing account
+                    </p> 
+                </div>
             </form>
         </div>
         {/if}
