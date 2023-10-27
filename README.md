@@ -31,15 +31,15 @@ _Below are instructions for installing the repo and some good commands to know f
     ```
 
 3. Create `.env` file  with the following:
-```sh
-DATABASE_URL = 'file:./dev.db'
-```
+    ```sh
+    DATABASE_URL = 'file:./dev.db'
+    ```
 
 4. Generate database
-```sh
-npx prisma generate
-npx prisma db push
-```
+    ```sh
+    npx prisma generate
+    npx prisma db push
+    ```
     
 ## Contact
 
