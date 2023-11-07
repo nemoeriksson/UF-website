@@ -175,4 +175,23 @@ function swipeImage(e:any){
             {/if}
         </div>
     </div>
+    <div class="footer">
+        <div class="flexContent">
+            <div class="mediaIcons">
+                <a target="_blank" href="https://github.com/nemoeriksson/UF-website" class="github" title="Github"></a>
+                <a target="_blank" href="https://www.instagram.com/screamingplantuf/" class="instagram" title="Instagram"></a>
+            </div>
+            <div class="links">
+                <a href="#">Products</a>
+                <a href="/login#register">Register</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Services</a>
+            </div>
+            <span class="copyright">
+                <span>Screaming Plant UF&copy; 2023 - All rights reserved</span>
+                <span class="nonMobile">&nbsp;|&nbsp;</span>
+                <span>Designed by Nemo Eriksson</span>
+            </span>
+        </div>
+    </div>
 </main>
