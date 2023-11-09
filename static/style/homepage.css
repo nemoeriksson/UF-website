@@ -79,7 +79,9 @@ main > div{
     cursor: pointer;
 }
 
-.about{
+/* === ABOUT === */
+
+#about{
     height: 100vh;
     background: var(--black);
     position: relative;
@@ -87,7 +89,7 @@ main > div{
     overflow-x: hidden;
 }
 
-.about .title{
+#about .title{
     color: var(--white);
     position: relative;
     top: 11%;
@@ -96,7 +98,7 @@ main > div{
     display: block;
 }
 
-.about .underline{
+#about .underline{
     height: 1px;
     width: 40%;
     border-radius: 2px;
@@ -107,7 +109,7 @@ main > div{
     background: rgba(var(--white-rgb), .75);
 }
 
-.about .content{
+#about .content{
     background: var(--white);
     height: 75%;
     width: 100%;
@@ -117,7 +119,7 @@ main > div{
     border-top-right-radius: 50px;
 }
 
-.about .content header{
+#about .content header{
     height: 60px;
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
@@ -128,7 +130,7 @@ main > div{
     user-select: none;
 }
 
-.about .content header > span{
+#about .content header > span{
     font-weight: 500;
     height: 80%;
     display: flex;
@@ -138,11 +140,11 @@ main > div{
     gap: 5%;
 }
 
-.about .content header > span span{
+#about .content header > span span{
     cursor: pointer;
 }
 
-.about .content header span .dash{
+#about .content header span .dash{
     width: 0px;
     height: 2px;
     background: var(--black);
@@ -287,6 +289,183 @@ main > div{
     background: var(--white);
 }
 
+#about .scrollContainer .scrollText{
+    color: var(--black);
+    font-weight: bold;
+}
+
+#about .scrollContainer .scrollIcon{
+    background: url("/images/svgs/chevron-down2.svg");
+    background-size: cover;
+    width: 45px;
+    aspect-ratio: 1;
+    cursor: pointer;
+}
+
+/* === PRODUCTS === */
+
+#products{
+    height: 100vh;
+    background: var(--white);
+    position: relative;
+    z-index: 1;
+    overflow-x: hidden;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px .5fr 1fr;
+}
+
+#products .highlight{
+    width: min(360px, 90%);
+    aspect-ratio: 16/9;
+    position: relative;
+    left: 5%;
+}
+
+#products .highlight .plant{
+    width: 50%;
+    background: url("/images/plant.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    transform: scaleX(-1);
+    aspect-ratio: 1;
+}
+
+#products .highlight .content{
+    position: absolute;
+    height: 70%;
+    width: 100%;
+    border-radius: 24px;
+    background: rgba(var(--green-rgb), .25);
+    left: 0;
+    bottom: 0;
+}
+
+#products .flexContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50%;
+    height: 100%;
+}
+
+#products .flexContainer .title{
+    color: var(--green);
+    font-weight: 600;
+    font-size: 1.2em;
+    text-align: left;
+}
+
+#products .flexContainer .description{
+    color: var(--green);
+    font-size: 1.1em;
+}
+
+#products .flexContainer .price{
+    color: var(--green);
+    font-weight: 600;
+    background: var(--green);
+    border-radius: 8px;
+    width: fit-content;
+    padding: 2px 14px;
+}
+
+.price > span{
+    color: var(--white);
+}
+
+.sliderParent .title{
+    color: var(--green);
+    font-size: 1.3em;
+    font-weight: 600;
+    width: min(360px, 90%);
+    margin: 24px 0 0 5%;
+}
+
+.slider{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 32px;
+    margin: 0 5%;
+}
+
+.slider .product{
+    background: rgba(var(--black-rgb), 0.1);
+    width: min(200px, 60%);
+    aspect-ratio: 3/4;
+    margin-top: 2.5%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    position: relative;
+    border-radius: 12px;
+}
+
+.product img{
+    width: 90%;
+    margin: auto;
+    transform: scaleX(-1);
+}
+
+.product .name{
+    color: var(--black);
+    margin-left: 12px;
+    font-weight: 600;
+    width: 60%;
+}
+
+.product .description div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.product .description div .description{
+    margin-left: 12px;
+}
+
+.product .price{
+    font-size: 1.2em;
+    font-weight: 600;
+    color: var(--green);
+    margin-right: 12px;
+}
+
+.product .star{
+    position: absolute;
+    width: 28px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    right: 8px;
+    top: 8px;
+    background: url("/images/svgs/star.svg"), rgba(var(--black-rgb), 0.25);
+    background-size: 65%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    padding: 5px;
+    transition: 250ms all;
+}
+
+.product .star:hover{
+    cursor: pointer;
+}
+
+.product .star.favorite{
+    background: url("/images/svgs/star2.svg"), rgba(var(--black-rgb), 0.25);
+    background-size: 65%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    transform: rotate(72deg);
+}
+
+/* === FOOTER === */
+
 .footer{
     background: url("/images/svgs/wave.svg"), var(--black);
     background-repeat: no-repeat;
@@ -329,6 +508,13 @@ main > div{
     opacity: 1;
 }
 
+.mediaIcons .mail{
+    background: url("/images/svgs/mail.svg");
+    background-size: cover;
+    height: 32px;
+    aspect-ratio: 1;
+}
+
 .mediaIcons .instagram{
     background: url("/images/svgs/instagram.svg");
     background-size: cover;
@@ -356,14 +542,16 @@ main > div{
     font-size: .9em;
 }
 
+/* === MOBILE === */
+
 @media only screen and (max-width: 600px) and (orientation: portrait){
-    .about .title{
+    #about .title{
         width: 100%;
         text-align: center;
         left: 0;
     }
 
-    .about .content{
+    #about .content{
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
@@ -382,6 +570,20 @@ main > div{
         right: 0;
     }
 
+    #products .highlight{
+        left: 50%;
+        transform: translateX(-50%);
+    }    
+
+    .sliderParent .title{
+        margin: 0 auto;
+    }
+
+    .slider{
+        justify-content: center;
+        margin-top: 4%;
+    }
+    
     .footer{
         height: 42vh;
     }
@@ -403,6 +605,8 @@ main > div{
         opacity: 1;
     }
 }
+
+/* === ANIMATIONS === */
 
 @keyframes slideSpawn {
     from{

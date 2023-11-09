@@ -7,6 +7,7 @@ import { fly } from "svelte/transition";
 import { swipe } from "svelte-gestures";
 
 let aboutSectionElement:HTMLElement;
+let productSectionElement:HTMLElement;
 let showDropdown = false;
 let aboutTab = 'development';
 let images:any;
@@ -18,14 +19,21 @@ let transformPercent = 0;
 let transformElement:HTMLElement;
 let horizontalSensitivity = 5;
 let currentStackIndex = 0;
+let favorited = false;
 
 // Loads image sources and descriptions from ´data.json´
 onMount(async()=>{
-    await fetch('/data.json').then(response=>response.json()).then(json => {images = json['imageData'];});
+    await fetch('/data.json').then(response=>response.json()).then(json => {
+        images = json['imageData'];
+    });
 });
 
 function scrollToAbout(){
     aboutSectionElement.scrollIntoView({behavior: "smooth"});
+}
+
+function scrollToProducts(){
+    productSectionElement.scrollIntoView({behavior: "smooth"});
 }
 
 function mousePressStart(e:MouseEvent){
@@ -81,7 +89,7 @@ function swipeImage(e:any){
     <a href="/" class="companyName">Screaming Plant UF</a>
     <div class="links nonMobile">
         <a href="#" on:click={scrollToAbout}>About Us</a>
-        <a href="#">Products</a>
+        <a href="#" on:click={scrollToProducts}>Products</a>
         <a href="/login">Login</a>
     </div>
     <div class="hamburgerMenu mobileOnly" aria-hidden="true"
@@ -98,7 +106,7 @@ function swipeImage(e:any){
     <div class="dropdown mobileOnly"
         transition:fly={{y:-150, duration: 350}}>
         <a href="#" on:click={()=>{scrollToAbout();showDropdown=false}}>About Us</a>
-        <a href="#">Products</a>
+        <a href="#" on:click={()=>{scrollToProducts();showDropdown=false}}>Products</a>
         <a href="/login">Login</a>
     </div>
 {/if}
@@ -115,7 +123,7 @@ function swipeImage(e:any){
         </div>
     </div> 
 
-    <div class="about" id="about" bind:this={aboutSectionElement}>
+    <div id="about" bind:this={aboutSectionElement}>
         <p class="title font1">About Us</p>
         <div class="underline mobileOnly"></div>
         <div class="content" on:mousedown={mousePressStart}     
@@ -174,18 +182,59 @@ function swipeImage(e:any){
                 placeholder
             {/if}
         </div>
+        <div class="scrollContainer" on:click={scrollToProducts} aria-hidden="true">
+            <span class="scrollText">Our Products</span>
+            <div class="scrollIcon"></div>
+        </div>
     </div>
+
+    <div id="products" bind:this={productSectionElement}>
+        <div></div>
+        <div class="highlight">
+            <div class="content">
+                <div class="flexContainer">
+                    <p class="title">Devices for your House Plants</p>
+                    <p class="description">Starting at</p>
+                    <p class="price"> 
+                        <span class="font1">$</span>
+                        <span class="font1">29</span>
+                    </p>
+                </div>
+            </div>
+            <div class="plant"></div>
+        </div>
+        
+        <div class="sliderParent">
+            <p class="title">Popular Products</p>
+            <div class="slider">
+                <div class="product">
+                    <img src="/images/plant.png" alt="Product">
+                    <div class="description">
+                        <p class="name">Plant Moisture Regulator</p>
+                        <div>
+                            <p class="description">Category: Sensor</p>
+                            <p class="price font1">$ 29</p>
+                        </div> 
+                    </div>
+                    <div class="star" class:favorite={favorited} 
+                        on:click={()=>{favorited=!favorited}} aria-hidden='true'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="footer">
         <div class="flexContent">
             <div class="mediaIcons">
-                <a target="_blank" href="https://github.com/nemoeriksson/UF-website" class="github" title="Github"></a>
-                <a target="_blank" href="https://www.instagram.com/screamingplantuf/" class="instagram" title="Instagram"></a>
+                <a target="_blank" href="mailto:screamingplantuf@gmail.com?subject=Customer Contact" rel="noopener noreferrer" class="mail" title="ScreamingPlantUF@gmail.com"></a>
+                <a target="_blank" href="https://github.com/nemoeriksson/UF-website" rel="noopener noreferrer" class="github" title="Github"></a>
+                <a target="_blank" href="https://www.instagram.com/screamingplantuf/" rel="noopener noreferrer" class="instagram" title="Instagram"></a>
             </div>
             <div class="links">
-                <a href="#">Products</a>
+                <a target="_blank" href="mailto:screamingplantuf@gmail.com?subject=Customer Contact">Contact Us</a>
                 <a href="/login#register">Register</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms & Services</a>
+                <a href="#" title="We dont steal data">Privacy Policy</a>
+                <a href="#" title="Be reasonable">Terms of Service</a>
             </div>
             <span class="copyright">
                 <span>Screaming Plant UF&copy; 2023 - All rights reserved</span>
