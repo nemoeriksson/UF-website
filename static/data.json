@@ -34,5 +34,13 @@
             "src": "trees.jpg",
             "description": "Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum "
         }
+    ],
+    "products": [
+        {
+            "name": "Plant Moisture Regulator",
+            "category": "Sensors",
+            "price": 29,
+            "image": "plant.png"
+        }
     ]
 }

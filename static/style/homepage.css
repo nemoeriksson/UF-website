@@ -396,6 +396,7 @@ main > div{
 
 .slider .product{
     background: rgba(var(--black-rgb), 0.1);
+    min-width: min(200px, 60%);
     width: min(200px, 60%);
     aspect-ratio: 3/4;
     margin-top: 2.5%;
@@ -580,7 +581,6 @@ main > div{
     }
 
     .slider{
-        justify-content: center;
         margin-top: 4%;
     }
     

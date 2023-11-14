@@ -19,13 +19,20 @@ let transformPercent = 0;
 let transformElement:HTMLElement;
 let horizontalSensitivity = 5;
 let currentStackIndex = 0;
-let favorited = false;
+let products:any;
+let favorites:string[] = [];
 
-// Loads image sources and descriptions from ´data.json´
+// Loads image sources, descriptions and products from ´data.json´
 onMount(async()=>{
     await fetch('/data.json').then(response=>response.json()).then(json => {
         images = json['imageData'];
+        products = json['products'];
     });
+    
+    let storedFavorites = localStorage.getItem('favorites');
+    if(storedFavorites){
+        favorites = JSON.parse(storedFavorites);
+    }
 });
 
 function scrollToAbout(){
@@ -83,6 +90,17 @@ function swipeImage(e:any){
     let change = direction == 'left' ? 1 : -1;
     currentStackIndex = (currentStackIndex + change + stackedImageElements.length) % stackedImageElements.length;
 }
+
+function favorite(item:any){
+    if(favorites.includes(item.name)){
+        favorites = favorites.filter(el => el != item.name);
+    }else{
+        favorites.push(item.name);
+    }
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    favorites = favorites;
+}
+
 </script>
 
 <nav>
@@ -207,18 +225,22 @@ function swipeImage(e:any){
         <div class="sliderParent">
             <p class="title">Popular Products</p>
             <div class="slider">
-                <div class="product">
-                    <img src="/images/plant.png" alt="Product">
-                    <div class="description">
-                        <p class="name">Plant Moisture Regulator</p>
-                        <div>
-                            <p class="description">Category: Sensor</p>
-                            <p class="price font1">$ 29</p>
-                        </div> 
+                {#if products}
+                    {#each products as product}
+                    <div class="product">
+                        <img src={`/images/${product.image}`} alt={product.name}>
+                        <div class="description">
+                            <p class="name">{product.name}</p>
+                            <div>
+                                <p class="description">Category: {product.category}</p>
+                                <p class="price font1">$ {product.price}</p>
+                            </div>
+                        </div>
+                        <div class="star" class:favorite={favorites.includes(product.name)}
+                            on:click={()=>{favorite(product)}} aria-hidden='true'></div>
                     </div>
-                    <div class="star" class:favorite={favorited} 
-                        on:click={()=>{favorited=!favorited}} aria-hidden='true'></div>
-                </div>
+                    {/each}
+                {/if}
             </div>
         </div>
     </div>
