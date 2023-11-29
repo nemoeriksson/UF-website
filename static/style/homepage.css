@@ -89,7 +89,7 @@ main > div{
     overflow-x: hidden;
 }
 
-#about .title{
+#about > .title{
     color: var(--white);
     position: relative;
     top: 11%;
@@ -411,6 +411,7 @@ main > div{
     width: 90%;
     margin: auto;
     transform: scaleX(-1);
+    user-select: none;
 }
 
 .product .name{

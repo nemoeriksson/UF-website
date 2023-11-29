@@ -44,13 +44,15 @@ const defaultSettings = {
  * @returns An object containing the page's properties that will be passed to `+page.svelte` rendering.
  */
 export const load = (async ({cookies}) => {
-    let sessionKey = cookies.get('session');
-    if(typeof sessionKey !== 'undefined'){
-        const user = await prisma.user.findUnique({where: {
-            session: sessionKey
-        }});
+    const tokenID = cookies.get('token');
 
-        if(user?.session){
+    if(tokenID){
+        const token = await prisma.token.findUnique({
+            where: {
+                id: tokenID
+            }
+        });
+        if(token){
             throw redirect(302, '/user');
         }
     }
@@ -74,22 +76,29 @@ export const actions: Actions = {
         let rememberDevice_str = data.get('remember')?.toString();
         let rememberDevice = rememberDevice_str == 'on';
 
-        const existingUser = await prisma.user.findUnique({where: {
-            email: email
-        }});
+        const existingUser = await prisma.user.findUnique({
+            where: {
+                email: email
+            }
+        }); 
 
         if(!existingUser)
             return fail(409, {email_login: 'Email not registered'});
 
-        if(validate(password, existingUser.salt, existingUser.password)){
+        if(validate(password, existingUser.salt, existingUser.hash)){
+            const token = await prisma.token.create({
+                data: {
+                    userID: existingUser.id
+                }
+            });
             if(rememberDevice){
                 let expirationDate = new Date();
                 expirationDate.setDate(expirationDate.getDate()+14);
-                cookies.set('session', existingUser.session, {path:'/', secure:false, expires:expirationDate});
+                cookies.set('token', token.id, {path:'/', secure:false, expires:expirationDate});
             } 
             
             else{
-                cookies.set('session', existingUser.session, {path:'/', secure:false});
+                cookies.set('token', token.id, {path:'/', secure:false});
             }
         } 
 
@@ -104,10 +113,10 @@ export const actions: Actions = {
      * This function processes user registration data, validates the input, checks for existing users, and creates a new user account.
      *
      * @param params - The context containing the request and other data.
-     * @returns An object will error details if some of the inputted data is invalid. A fail will also be returned on a 
-     *          successfull registration that requires the user to login direclty afterwards
+     * @throws {redirect} If all registration data is valid the user is automatically logged in and redirected. 
+     * @returns An object will error details if some of the inputted data is invalid.
      */
-    register: async({request})=>{
+    register: async({request, cookies})=>{
         let data = await request.formData();
         let email = data.get('email')?.toString().toLowerCase()!;
         let password = data.get('password')?.toString()!;
@@ -128,15 +137,21 @@ export const actions: Actions = {
         }
 
         let hashData = hash(password);
-        await prisma.user.create({data: {
-            session: crypto.randomBytes(16).toString('base64'),
+        
+        const newUser = await prisma.user.create({data: {
             email: email,
-            password: hashData.hash,
+            hash: hashData.hash,
             salt: hashData.salt,
             settings: JSON.stringify(defaultSettings),
         }});
 
-        // Returns fail with data for the client to know that they have to log in to continue
-        return fail(401, {login_required: 'true', email_login: 'Login required to continue'}); 
+        const token = await prisma.token.create({
+            data: {
+                userID: newUser.id
+            }
+        });
+
+        cookies.set('token', token.id, {path:'/', secure:false});
+        throw redirect(302, '/user');
     }
 };

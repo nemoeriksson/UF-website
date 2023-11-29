@@ -11,8 +11,9 @@
             "offset": 0
         },
         {
-            "src": "trees.jpg",
-            "description": "Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum "
+            "src": "/collection/raspberry.jpg",
+            "description": "The hardware we currently use for our prototype is the Raspberry Pi, but we plan on using a Raspberry Pico for the final product",
+            "offset": 50
         },
         {
             "src": "trees.jpg",
@@ -33,14 +34,6 @@
         {
             "src": "trees.jpg",
             "description": "Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum "
-        }
-    ],
-    "products": [
-        {
-            "name": "Plant Moisture Regulator",
-            "category": "Sensors",
-            "price": 29,
-            "image": "plant.png"
         }
     ]
 }

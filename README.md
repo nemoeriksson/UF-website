@@ -30,7 +30,7 @@ _Below are instructions for installing the repo and some good commands to know f
     npm install
     ```
 
-3. Create `.env` file  with the following:
+3. Add DATABASE_URL to `.env` file. *Example below is for a local database file*
     ```sh
     DATABASE_URL = 'file:./dev.db'
     ```
@@ -45,6 +45,8 @@ _Below are instructions for installing the repo and some good commands to know f
 
 Instagram - [@ScreamingPlantUF](https://www.instagram.com/screamingplantuf)
 
-Project Link: [https://github.com/nemoeriksson/UF-website](https://github.com/nemoeriksson/UF-website)
+Email - ScreamingPlantUF@gmail.com
+
+Project Link - [https://github.com/nemoeriksson/UF-website](https://github.com/nemoeriksson/UF-website)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

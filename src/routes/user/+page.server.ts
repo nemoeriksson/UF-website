@@ -12,12 +12,19 @@ import { prisma } from '$lib';
  * @returns An object containing the page's properties or an empty object.
  */
 export const load = (async ({cookies}) => {
-    let sessionKey = cookies.get('session');
-    const user = await prisma.user.findUnique({where: {
-        session: sessionKey
-    }});
+    const tokenID = cookies.get('token');
+    let isLoggedIn = false;
 
-    if(typeof sessionKey === 'undefined' || !user){
+    if(tokenID){
+        const token = await prisma.token.findUnique({
+            where: {
+                id: tokenID
+            }
+        });
+        isLoggedIn = token ? true : false;
+    }
+
+    if(!isLoggedIn){
         throw redirect(302, '/login');
     }
 

@@ -26,9 +26,9 @@ function getTab(){
     return tab;
 }
 
-export let form;
+let tab = getTab();
 
-$: tab = form?.login_required?.toString()=='true' ? 'login' : (form?.email_reg || form?.pw_reg) ? 'register' : getTab(); 
+export let form;
 </script>
 
 <nav>
@@ -72,7 +72,7 @@ $: tab = form?.login_required?.toString()=='true' ? 'login' : (form?.email_reg |
         <div class="formContainer login">
             <p class="title">Sign In</p>
             <p class="description">Welcome back to Screaming Plant UF. Sign in to your account to continue.</p>
-            <form method="post" action="?/login" use:enhance>
+            <form autocomplete="off" method="post" action="?/login" use:enhance>
                 <div>
                     <div class="inputField">
                         {#if form?.email_login}
@@ -111,7 +111,7 @@ $: tab = form?.login_required?.toString()=='true' ? 'login' : (form?.email_reg |
         <div class="formContainer register">
             <p class="title">Create an account</p>
             <p class="description">Already own one of our products? Make an account now for its full potential!</p>
-            <form method="post" action="?/register" use:enhance>
+            <form autocomplete="off" method="post" action="?/register" use:enhance>
                 <div>
                     <div class="inputField">
                         {#if form?.email_reg}

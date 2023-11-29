@@ -34,7 +34,7 @@ html, body{
 nav{
     background: rgba(var(--black-rgb), 0.95);
     width: 100%;
-    height: 48px;
+    height: 52px;
     position: fixed;
     display: inline-flex;
     flex-direction: row;

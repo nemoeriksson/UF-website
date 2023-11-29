@@ -5,12 +5,14 @@
 import { onMount } from "svelte";
 import { fly } from "svelte/transition";
 import { swipe } from "svelte-gestures";
+import type { PageData } from "./$types";
+
+export let data:PageData;
 
 let aboutSectionElement:HTMLElement;
 let productSectionElement:HTMLElement;
 let showDropdown = false;
 let aboutTab = 'development';
-let images:any;
 let imageElements:HTMLElement[] = [];
 let stackedImageElements:HTMLElement[] = [];
 let mouseDownX:number;
@@ -19,16 +21,13 @@ let transformPercent = 0;
 let transformElement:HTMLElement;
 let horizontalSensitivity = 5;
 let currentStackIndex = 0;
-let products:any;
 let favorites:string[] = [];
+
+$: products = data.products;
+$: images = data.images;
 
 // Loads image sources, descriptions and products from ´data.json´
 onMount(async()=>{
-    await fetch('/data.json').then(response=>response.json()).then(json => {
-        images = json['imageData'];
-        products = json['products'];
-    });
-    
     let storedFavorites = localStorage.getItem('favorites');
     if(storedFavorites){
         favorites = JSON.parse(storedFavorites);
@@ -163,7 +162,7 @@ function favorite(item:any){
                     <div class="horizontalScrollContainer">
                         {#if images}
                         {#each images as image, index}
-                            <div draggable="false" class="image" bind:this={imageElements[index]} style={`background: url("images/${image.src}"); background-size: cover;`}>
+                            <div draggable="false" class="image" bind:this={imageElements[index]} style={`background: url("images/${image.imageURL}"); background-size: cover;`}>
                                 <p class="description">
                                     {#each image.description.split(' ') as word, index}
                                         <span style={`animation-delay: ${40*index}ms;`}>{word} </span>
@@ -181,7 +180,7 @@ function favorite(item:any){
                                 use:swipe={{timeframe:300, minSwipeDistance:50, touchAction: 'pan-y'}} 
                                 on:swipe={swipeImage}>
                                 <div draggable="false" class="image" style={
-                                `background: url("images/${image.src}"); 
+                                `background: url("images/${image.imageURL}"); 
                                 background-size: cover; 
                                 background-position-x: ${typeof image.offset != 'undefined' ? image.offset : 50}%;`}>
                                 </div>
@@ -227,18 +226,18 @@ function favorite(item:any){
             <div class="slider">
                 {#if products}
                     {#each products as product}
-                    <div class="product">
-                        <img src={`/images/${product.image}`} alt={product.name}>
-                        <div class="description">
-                            <p class="name">{product.name}</p>
-                            <div>
-                                <p class="description">Category: {product.category}</p>
-                                <p class="price font1">$ {product.price}</p>
+                        <div class="product">
+                            <img src={`/images/${product.imageURL}`} alt={product.name}>
+                            <div class="description">
+                                <p class="name">{product.name}</p>
+                                <div>
+                                    <p class="description">Category: {product.category}</p>
+                                    <p class="price font1">$ {product.price}</p>
+                                </div>
                             </div>
+                            <div class="star" title="Favorite" class:favorite={favorites.includes(product.name)}
+                                on:click={()=>{favorite(product)}} aria-hidden='true'></div>
                         </div>
-                        <div class="star" class:favorite={favorites.includes(product.name)}
-                            on:click={()=>{favorite(product)}} aria-hidden='true'></div>
-                    </div>
                     {/each}
                 {/if}
             </div>
