@@ -14,13 +14,18 @@ import { prisma } from '$lib';
 export const load = (async ({cookies}) => {
     const tokenID = cookies.get('token');
     let isLoggedIn = false;
+    let user;
 
     if(tokenID){
         const token = await prisma.token.findUnique({
             where: {
                 id: tokenID
+            },
+            include: {
+                user: true
             }
         });
+        user = token?.user;
         isLoggedIn = token ? true : false;
     }
 
@@ -28,5 +33,5 @@ export const load = (async ({cookies}) => {
         throw redirect(302, '/login');
     }
 
-    return { };
+    return { email: user?.email };
 }) satisfies PageServerLoad;
