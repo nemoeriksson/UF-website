@@ -163,7 +163,7 @@ function favorite(item:any){
                     <div class="horizontalScrollContainer">
                         <div class="ourProgress nonMobile">
                             <p class="title font1">Development Progress</p>
-                            <p class="description">Our development is split into two parts: The hardware and the website. The website has been in development since October 2023. The hardware has been a bit slower to develop due to more research being needed and budget contraints but it will become reality shorty. Hover the images to read more details (click & drag to slide).</p>
+                            <p class="description">Our development is split into two parts: The hardware and the website. The website has been in development since October 2023. The hardware has been a bit slower to develop due to more research being needed and budget contraints but it will become reality shortly. Hover the images to read more details (click & drag to slide).</p>
                         </div>
                         {#if images}
                         {#each images as image, index}
@@ -220,8 +220,10 @@ function favorite(item:any){
                                         </div>
                                     </div>
                                     <div>
-                                        <p class="name">{member.name}</p>
-                                        <p class="role">{member.role}</p>
+                                        <p>
+                                            <span class="name">{member.name} &Tab;&nbsp;</span>
+                                            <span class="role">{member.role}</span>
+                                        </p>
                                         <p class="text">{member.text}</p>
                                     </div>
                                 </div>
