@@ -92,7 +92,7 @@ main > div{
 #about > .title{
     color: var(--white);
     position: relative;
-    top: 11%;
+    top: 10%;
     left: 7%;
     font-size: 2em;
     display: block;
@@ -111,7 +111,7 @@ main > div{
 
 #about .content{
     background: var(--white);
-    height: 75%;
+    height: 80%;
     width: 100%;
     position: absolute;
     bottom: 0;
@@ -163,7 +163,7 @@ main > div{
     height: 60%;
     width: max-content;
     position: relative;
-    left: 35%;
+    left: 20%;
     top: 10%;
     display: block;
     user-select: none;
@@ -174,6 +174,28 @@ main > div{
     height: 100%;
     display: flex;
     flex-direction: row;
+}
+
+.horizontalScrollContainer .ourProgress{
+    height: 100%;
+    aspect-ratio: 4/3;
+    transform: translateX(-20%);
+    padding: 24px;
+    position: relative;
+    background: url("/images/svgs/wave2.svg"), rgba(var(--green-rgb), .25);
+    background-size: cover;
+    border-radius: 12px;
+}
+
+.ourProgress .title{
+    color: var(--black);
+    font-weight: 600;
+    font-size: 1.9em;
+    margin-bottom: 12px;
+}
+
+.ourProgress .description{
+    color: var(--black);
 }
 
 .horizontalScrollContainer .image{
@@ -289,6 +311,90 @@ main > div{
     background: var(--white);
 }
 
+.content .ideaContainer{
+    height: calc(100% - 100px);
+    width: 100%;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 70px;
+    grid-row-gap: 24px;
+}
+
+.ideaContainer > div:not(.people){
+    max-width: 440px;
+    margin: 0 auto;
+    position: relative;
+    padding: 18px;
+    border-radius: 12px;
+}
+
+.ideaContainer > div .title{
+    color: var(--black);
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.ideaContainer > div .description{
+    color: var(--black);
+}
+
+.ideaContainer > .people { 
+    grid-area: 1 / 2 / 3 / 3; 
+    width: 100%;
+}
+
+.ideaContainer > .people > div{
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.ideaContainer > .people > div .name{
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--green);
+}
+
+.ideaContainer > .people > div .role{
+    color: var(--black);
+    font-weight: 600;
+}
+
+.ideaContainer > .people > div .text{
+    color: var(--black);
+    display: inline-block;
+    max-width: 330px;
+}
+
+.people .person{
+    padding: 4px;
+    position: relative;
+    display: flex;
+    gap: 12px;
+    height: 80px;
+    width: 100%;
+    margin: none;
+}
+
+.people .person > .portrait > .portrait{
+    display: block;
+    width: 55px;
+    height: 65px;
+    background: var(--green);
+    border-radius: 4px;
+}
+
+.people .person:nth-of-type(4) > .portrait > .portrait{
+    background: url("/images/faces/sam.jpg");
+    background-position: 50 50;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 #about .scrollContainer .scrollText{
     color: var(--black);
     font-weight: bold;
@@ -378,7 +484,7 @@ main > div{
     color: var(--white);
 }
 
-.sliderParent .title{
+.productContainer .title{
     color: var(--green);
     font-size: 1.3em;
     font-weight: 600;
@@ -386,20 +492,13 @@ main > div{
     margin: 24px 0 0 5%;
 }
 
-.slider{
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 32px;
-    margin: 0 5%;
-}
-
-.slider .product{
+.product{
     background: rgba(var(--black-rgb), 0.1);
     min-width: min(200px, 60%);
     width: min(200px, 60%);
     aspect-ratio: 3/4;
-    margin-top: 2.5%;
+    margin-top: .5%;
+    margin-left: 5%;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -410,7 +509,6 @@ main > div{
 .product img{
     width: 90%;
     margin: auto;
-    transform: scaleX(-1);
     user-select: none;
 }
 
@@ -433,37 +531,44 @@ main > div{
 }
 
 .product .price{
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: 600;
     color: var(--green);
     margin-right: 12px;
 }
 
-.product .star{
+.features{
     position: absolute;
-    width: 28px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    right: 8px;
-    top: 8px;
-    background: url("/images/svgs/star.svg"), rgba(var(--black-rgb), 0.25);
-    background-size: 65%;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    padding: 5px;
-    transition: 250ms all;
+    width: 55%;
+    min-width: 360px;
+    height: 70%;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
 }
 
-.product .star:hover{
-    cursor: pointer;
+.features .title{
+    font-size: 1.9em;
+    font-weight: 600;
+    color: var(--black);
 }
 
-.product .star.favorite{
-    background: url("/images/svgs/star2.svg"), rgba(var(--black-rgb), 0.25);
-    background-size: 65%;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    transform: rotate(72deg);
+.features > div{
+    margin-left: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: auto;
+    flex-grow: 1;
+}
+
+.featPoint .title{
+    color: var(--green);
+    font-weight: 600;
+    font-size: 1.3em;
 }
 
 /* === FOOTER === */
@@ -557,6 +662,18 @@ main > div{
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
+    
+    .content .ideaContainer {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        grid-column-gap: 24px;
+        grid-row-gap: 24px;
+    }
+    
+    .ideaContainer > .people { 
+        grid-area: 3 / 1 / 5 / 2; 
+    }
 
     .arrow{
         height: 50%;
@@ -572,10 +689,26 @@ main > div{
         right: 0;
     }
 
-    #products .highlight{
+    #products{
+        max-height: 100vh;
+        overflow: hidden;
+    }
+
+    .features{
+        position: relative;
+        top: 0;
         left: 50%;
         transform: translateX(-50%);
-    }    
+        justify-content: flex-start;
+    }
+
+    .features > div{
+        gap: 20px;
+    }
+
+    .featPoint .text{
+        font-size: .9em;
+    }
 
     .sliderParent .title{
         margin: 0 auto;

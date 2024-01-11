@@ -22,6 +22,7 @@ let transformElement:HTMLElement;
 let horizontalSensitivity = 5;
 let currentStackIndex = 0;
 let favorites:string[] = [];
+let members = data.members;
 
 $: products = data.products;
 $: images = data.images;
@@ -160,6 +161,10 @@ function favorite(item:any){
             {#if aboutTab=='development'}
                 <div class="transformContainer nonMobile" bind:this={transformElement}>
                     <div class="horizontalScrollContainer">
+                        <div class="ourProgress nonMobile">
+                            <p class="title font1">Development Progress</p>
+                            <p class="description">Our development is split into two parts: The hardware and the website. The website has been in development since October 2023. The hardware has been a bit slower to develop due to more research being needed and budget contraints but it will become reality shorty. Hover the images to read more details (click & drag to slide).</p>
+                        </div>
                         {#if images}
                         {#each images as image, index}
                             <div draggable="false" class="image" bind:this={imageElements[index]} style={`background: url("images/${image.imageURL}"); background-size: cover;`}>
@@ -196,7 +201,38 @@ function favorite(item:any){
                 </div>
             {/if}
             {#if aboutTab=='idea'}
-                placeholder
+                <section class="ideaContainer">
+                    <div class="idea">
+                        <p class="title font1">Our Idea</p>
+                        <p class="description">We are creating an easy to use device that reminds users to water their plants. You as the user will be able to see all the details about your plants and their moisture to make sure they live as long as possible. Custom reminders and intervals can also be set to gain more control over notifications</p>
+                    </div>
+                    <div class="people nonMobile">
+                        <p class="title font1">Who We Are</p>
+                        <div class="us">
+                            {#each members as member}
+                                <div class="person">
+                                    <div class="portrait">
+                                        <div class="portrait" 
+                                            style="background: url('{member.image}');
+                                            background-position: 50 50;
+                                            background-size: cover;
+                                            background-repeat: no-repeat;">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="name">{member.name}</p>
+                                        <p class="role">{member.role}</p>
+                                        <p class="text">{member.text}</p>
+                                    </div>
+                                </div>
+                            {/each}
+                        </div>    
+                    </div>
+                    <div class="future">
+                        <p class="title font1">The Future Ahead</p>
+                        <p class="description">Every day we are continuing to develop and improve our systems, both the website and the hardware, to make sure our users get the best product possible. Right now our focus is on the hardware and connecting it to the website to users can see data about their plants whenever and where ever they are.</p>
+                    </div>
+                </section>
             {/if}
         </div>
         <div class="scrollContainer" on:click={scrollToProducts} aria-hidden="true">
@@ -211,37 +247,55 @@ function favorite(item:any){
             <div class="content">
                 <div class="flexContainer">
                     <p class="title">Devices for your House Plants</p>
-                    <p class="description">Starting at</p>
+                    <p class="description">Priced at</p>
                     <p class="price"> 
                         <span class="font1">$</span>
-                        <span class="font1">29</span>
+                        <span class="font1">TBD</span>
                     </p>
                 </div>
             </div>
             <div class="plant"></div>
         </div>
         
-        <div class="sliderParent">
-            <p class="title">Popular Products</p>
-            <div class="slider">
-                {#if products}
-                    {#each products as product}
-                        <div class="product">
-                            <img src={`/images/${product.imageURL}`} alt={product.name}>
-                            <div class="description">
-                                <p class="name">{product.name}</p>
-                                <div>
-                                    <p class="description">Category: {product.category}</p>
-                                    <p class="price font1">$ {product.price}</p>
-                                </div>
-                            </div>
-                            <div class="star" title="Favorite" class:favorite={favorites.includes(product.name)}
-                                on:click={()=>{favorite(product)}} aria-hidden='true'></div>
-                        </div>
-                    {/each}
-                {/if}
+        <div class="productContainer nonMobile">
+            <p class="title">Our Product</p>
+            <div class="product">
+                <img src='/images/prodPlaceholder.png' alt='Moisture Sensor'>
+                <div class="description">
+                    <p class="name">Moisture Sensor</p>
+                    <div>
+                        <p class="description">Category: Sensor</p>
+                        <p class="price font1">$TBD</p>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <div class="features">
+            <p class="title font1 nonMobile">Product Details & Features</p>
+            <div>
+                <div class="featPoint">
+                    <p class="title">Functionality and purpose</p>
+                    <p class="text">Our product is a small device that you as the user can put on the side of you flower pot which outputs moisture data for you to see both on a small display and here on the website.</p>
+                </div>
+                <div class="featPoint">
+                    <p class="title">Use Cases</p>
+                    <p class="text">This device can be used both by consumers and by companies. With this product we offer statistical control over your plants which helps them have a longer life and saving you money in the process. This product can also be used in office settings and similar to save your company man hours spent on watering plants when not needed, increasing productivity and decreasing wasted time.</p>
+                </div>
+                <div class="featPoint">
+                    <p class="title">Features</p>
+                    {#each [
+                        ' - Moisture sensor',
+                        ' - Custom reminders',
+                        ' - Water low alerts',
+                        ' - Easy to understand data'
+                    ] as text}
+                        <p class="text">{text}</p>
+                    {/each}
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="footer">

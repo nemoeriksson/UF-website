@@ -14,7 +14,8 @@ import { prisma } from '$lib';
 export const load = (async ({cookies}) => {
     const tokenID = cookies.get('token');
     let isLoggedIn = false;
-    let user;
+    let user_;
+    let devices:any|undefined;
 
     if(tokenID){
         const token = await prisma.token.findUnique({
@@ -25,7 +26,16 @@ export const load = (async ({cookies}) => {
                 user: true
             }
         });
-        user = token?.user;
+        user_ = token?.user;
+        const user = await prisma.user.findUnique({
+            where: {
+                id: user_?.id
+            },
+            include: {
+                devices: true
+            }
+        });
+        devices = user?.devices;
         isLoggedIn = token ? true : false;
     }
 
@@ -33,5 +43,5 @@ export const load = (async ({cookies}) => {
         throw redirect(302, '/login');
     }
 
-    return { email: user?.email };
+    return { email: user_?.email, devices };
 }) satisfies PageServerLoad;
