@@ -133,7 +133,7 @@ function favorite(item:any){
     <div class="container">
         <div class="contentContainer">
             <p class="title font1">Giving voices to plants</p>
-            <p class="description">Never forget to water your plants again, with the help of Screaming Plants UF. Keep you plants alive by signing up today</p>
+            <p class="description">Never forget to water your plants again, with the help of Screaming Plants UF. Keeping your plants alive with technology</p>
         </div>
         <div class="scrollContainer" on:click={scrollToAbout} aria-hidden="true">
             <span class="scrollText">Read More</span>
@@ -204,7 +204,7 @@ function favorite(item:any){
                 <section class="ideaContainer">
                     <div class="idea">
                         <p class="title font1">Our Idea</p>
-                        <p class="description">We are creating an easy to use device that reminds users to water their plants. You as the user will be able to see all the details about your plants and their moisture to make sure they live as long as possible. Custom reminders and intervals can also be set to gain more control over notifications</p>
+                        <p class="description">We are creating an easy to use device that reminds users to water their plants with audio and digital notifications. You as the user will be able to see all the details about your plants and their moisture to make sure they live as long as possible. Custom reminders and intervals can also be set to gain more control over notifications</p>
                     </div>
                     <div class="people nonMobile">
                         <p class="title font1">Who We Are</p>
@@ -238,7 +238,7 @@ function favorite(item:any){
             {/if}
         </div>
         <div class="scrollContainer" on:click={scrollToProducts} aria-hidden="true">
-            <span class="scrollText">Our Products</span>
+            <span class="scrollText">Our Product</span>
             <div class="scrollIcon"></div>
         </div>
     </div>
@@ -277,7 +277,7 @@ function favorite(item:any){
             <p class="title font1 nonMobile">Product Details & Features</p>
             <div>
                 <div class="featPoint">
-                    <p class="title">Functionality and purpose</p>
+                    <p class="title">Functionality & Purpose</p>
                     <p class="text">Our product is a small device that you as the user can put on the side of you flower pot which outputs moisture data for you to see both on a small display and here on the website.</p>
                 </div>
                 <div class="featPoint">

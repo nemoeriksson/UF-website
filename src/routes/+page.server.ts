@@ -23,7 +23,7 @@ const members = [
     {
         'name': 'Sam Gustafsson',
         'role': 'Product Developer',
-        'text': '"Min roll i företaget är en salami" - Sam 2024 ',
+        'text': 'I am responsible for further developing and manufacturing our product',
         'image': 'images/faces/sam.jpg'
     }
 ]

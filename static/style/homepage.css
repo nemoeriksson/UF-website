@@ -320,6 +320,7 @@ main > div{
     grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 70px;
     grid-row-gap: 24px;
+    overflow-y: scroll;
 }
 
 .ideaContainer > div:not(.people){
@@ -350,7 +351,7 @@ main > div{
     margin-top: 12px;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 2vh;
 }
 
 .ideaContainer > .people > div .name{
