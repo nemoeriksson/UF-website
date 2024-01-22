@@ -3,17 +3,17 @@ export const prisma = new PrismaClient();
 export const data = {
     "imageData": [
         {
-            "src": "/collection/code.png",
+            "src": "collection/code.png",
             "description": "This website is made using Svelte and most code is written in HTML, CSS or Typescript",
             "offset": 0
         },
         {
-            "src": "/collection/github.png",
+            "src": "collection/github.png",
             "description": "This website is open source, meaning that all code is available on GitHub for the public to look at and improve",
             "offset": 0
         },
         {
-            "src": "/collection/raspberry.jpg",
+            "src": "collection/raspberry.jpg",
             "description": "The hardware we currently use for our prototype is the Raspberry Pi, but we plan on using a Raspberry Pico for the final product",
             "offset": 50
         },
