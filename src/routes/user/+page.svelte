@@ -1,11 +1,13 @@
 <link rel="stylesheet" href="style/userpage.css">
 <script lang='ts'>
+import { enhance } from '$app/forms';
 import { fly } from 'svelte/transition';
 
 export let data;
+export let form;
 
 let showDropdown = false;
-let devices = data.devices;
+$: devices = data.devices;
 
 </script>
 
@@ -32,26 +34,50 @@ let devices = data.devices;
 {/if}
 
 <section class="container">
-    <section class="account">
-        <p>_</p>
-        <p>_</p>
-        <p>_</p>
-        <p>STILL UNDER PRODUCTION - PLEASE <a href="/" style="color: blue; text-decoration: underline;">RETURN</a> TO WORKING PAGE</p>
-    </section>
+    <main>
+        <section class="account">
+            <p>_</p>
+            <p>_</p>
+            <a href="/">STILL PAGE IS STILL IN DEVELOPMENT, PRESS THIS LINK TO GO BACK</a>
+            </section>
 
-    <section class="devices">
-        {#each devices as device}
-            <div class="device">
-                <p class="title">{device.name}</p>
-                <p class="category">{device.category}</p>
-                <div class="stats">
-                    <div class="short">
-                        <span>Moisture: 0%</span>
-                        <span>Time Since Water: 10h</span>
-                        <button>View</button>
+        <section class="devices">
+            {#each devices as device}
+                <div class="device">
+                    <p class="title">{device.name}</p>
+                    <p class="category">
+                        {#if device.description}
+                            {device.description}
+                        {/if}
+                    </p>
+                    <div class="stats">
+                        <div class="short">
+                            <p class="stat">Moisture: 0%</p>
+                            <p class="stat">Time Since Water: 10h</p>
+                            <p class="stat">Estimated Watering time: 7d</p>
+                            <button>View</button>
+                        </div>
                     </div>
                 </div>
+            {/each}
+            <div class="addDevice">
+                <p class="title">Add new device</p>
+                <form action="?/addDevice" method="post" use:enhance>
+                    <div class="inputField">
+                        <input required type="text" placeholder="Device ID" name="deviceID">
+                        {#if form?.deviceID}
+                            <span class="error">{form.deviceID}</span>
+                        {/if}
+                        </div>
+                    <div class="inputField">
+                        <input required type="text" placeholder="Name" name="deviceName">
+                    </div>
+                    <div class="inputField">
+                        <input type="text" placeholder="Description (optional)" name="deviceContext">
+                    </div>
+                    <button>Add Device</button>
+                </form>
             </div>
-        {/each}
-    </section>
+        </section>
+    </main>
 </section>

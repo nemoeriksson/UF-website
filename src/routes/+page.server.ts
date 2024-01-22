@@ -1,36 +1,10 @@
-import { prisma } from '$lib';
+import { prisma, data } from '$lib';
 import type { PageServerLoad } from './$types';
 
-const members = [
-    {
-        'name': 'Irma Zimmerman',
-        'role': 'CEO',
-        'text': 'I represent the company externally but also take the major decisions & lead the company forwards.',
-        'image': 'images/faces/irma.jpg'
-    },
-    {
-        'name': 'Nemo Eriksson',
-        'role': 'CTO & Website Developer',
-        'text': 'I\'m responsible for developing & designing our website but also help with product development.',
-        'image': 'images/faces/nemo.jpg'
-    },
-    {
-        'name': 'John Falkdal',
-        'role': 'CCO & Product Developer',
-        'text': 'I put forward and implement new ideas about how we can further develop & innovate our product.',
-        'image': 'images/faces/john.jpg'
-    },
-    {
-        'name': 'Sam Gustafsson',
-        'role': 'Product Developer',
-        'text': 'I am responsible for further developing and manufacturing our product',
-        'image': 'images/faces/sam.jpg'
-    }
-]
+const members = data.members;
 
 export const load = (async () => {
-    const products = prisma.device.findMany();
-    const images = prisma.progressImage.findMany();
+    const imageData = data.imageData;
     
-    return {products, images, members};
+    return {imageData, members};
 }) satisfies PageServerLoad;

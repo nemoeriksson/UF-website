@@ -23,9 +23,8 @@ let horizontalSensitivity = 5;
 let currentStackIndex = 0;
 let favorites:string[] = [];
 let members = data.members;
+let images = data.imageData;
 
-$: products = data.products;
-$: images = data.images;
 
 // Loads image sources, descriptions and products from ´data.json´
 onMount(async()=>{
@@ -167,7 +166,7 @@ function favorite(item:any){
                         </div>
                         {#if images}
                         {#each images as image, index}
-                            <div draggable="false" class="image" bind:this={imageElements[index]} style={`background: url("images/${image.imageURL}"); background-size: cover;`}>
+                            <div draggable="false" class="image" bind:this={imageElements[index]} style={`background: url("images/${image.src}"); background-size: cover;`}>
                                 <p class="description">
                                     {#each image.description.split(' ') as word, index}
                                         <span style={`animation-delay: ${40*index}ms;`}>{word} </span>
@@ -182,10 +181,10 @@ function favorite(item:any){
                     {#if images}
                         {#each images as image, index}
                             <div class="visibleContainer" bind:this={stackedImageElements[index]} class:hidden={index!=currentStackIndex}
-                                use:swipe={{timeframe:300, minSwipeDistance:50, touchAction: 'pan-y'}} 
+                                use:swipe={{timeframe:300, minSwipeDistance:50, touchAction: 'pan-y'}}
                                 on:swipe={swipeImage}>
                                 <div draggable="false" class="image" style={
-                                `background: url("images/${image.imageURL}"); 
+                                `background: url("images/${image.src}"); 
                                 background-size: cover; 
                                 background-position-x: ${typeof image.offset != 'undefined' ? image.offset : 50}%;`}>
                                 </div>

@@ -1,5 +1,5 @@
-import { redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
+import { fail, redirect } from '@sveltejs/kit';
+import type { Actions, PageServerLoad } from './$types';
 import { prisma } from '$lib';
 
 /**
@@ -45,3 +45,48 @@ export const load = (async ({cookies}) => {
 
     return { email: user_?.email, devices };
 }) satisfies PageServerLoad;
+
+export const actions: Actions = {
+    addDevice: async({request, cookies})=>{
+        const data = await request.formData();
+        const deviceID = data.get('deviceID')?.toString();
+        const deviceName = data.get('deviceName')?.toString();
+        const deviceDescription = data.get('deviceContext')?.toString();
+
+        const device = await prisma.device.findUnique({
+            where: {
+                id: deviceID
+            }
+        });
+
+        const tokenID = cookies.get('token');
+        const token = await prisma.token.findUnique({
+            where: {
+                id: tokenID
+            },
+            include: {
+                user: true
+            }
+        });
+        const user = token?.user;
+        if(user){
+            if(!device){
+                return fail(406, {deviceID: 'Invalid device ID'});
+            }
+
+            else{
+                await prisma.device.update({
+                    where: {
+                        id: deviceID
+                    },
+                    data: {
+                        name: deviceName,
+                        description: deviceDescription || null,
+                        ownerID: user.id
+                    }
+                })
+            }
+        }
+
+    }
+};

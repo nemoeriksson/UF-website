@@ -1,4 +1,5 @@
 .container{
+    position: relative;
     height: 100%;
     padding-top: 52px;
     display: flex;
@@ -7,10 +8,20 @@
     gap: 12px;
 }
 
-.container .devices{
-    
+.devices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1%;
+}
+
+.devices .device{
+    height: 300px;
+    aspect-ratio: 1;
+    background: rgba(var(--black-rgb), .1);
 }
 
 @media only screen and (max-width: 600px) and (orientation: portrait){
-    
+    .container{
+        padding-top: 60px;
+    }
 }

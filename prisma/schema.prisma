@@ -24,17 +24,10 @@ model Token{
 }
 
 model Device{
-  id        String @id @default(uuid())
-  name      String
-  category  String
-  price     Int
-  imageURL  String
-  users     User[]
-}
-
-model ProgressImage{
-  id          Int @id @default(autoincrement())
-  imageURL    String
-  description String
-  offset      Int?
+  id          String @id
+  name        String?
+  description String?
+  owner       User? @relation(fields: [ownerID], references: [id])
+  ownerID     String?
+  data        Json
 }

@@ -53,7 +53,7 @@ export const load = (async ({cookies}) => {
             }
         });
         if(token){
-            //throw redirect(302, '/user');
+            throw redirect(302, '/user');
         }
     }
     
