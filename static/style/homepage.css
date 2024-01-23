@@ -9,7 +9,7 @@ main > div{
 }
 
 .container{
-    background: url("/images/trees.jpg");
+    background: url("/images/trees.webp");
     background-size: cover;
     background-position: 50% 70%;
     height: 100%;
@@ -431,7 +431,7 @@ main > div{
 
 #products .highlight .plant{
     width: 50%;
-    background: url("/images/plant.png");
+    background: url("/images/plant.webp");
     background-size: cover;
     background-repeat: no-repeat;
     transform: scaleX(-1);

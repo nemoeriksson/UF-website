@@ -1,5 +1,5 @@
 .container{
-    background: url("/images/trees.jpg");
+    background: url("/images/trees.webp");
     background-size: cover !important;
     background-position: 50% 70%;
     height: 100%;
@@ -133,7 +133,7 @@
 }
 
 .inputField .icon{
-    background: url("/images/email.png");
+    background: url("/images/email.webp");
     background-size: cover;
     height: 24px;
     aspect-ratio: 1;
@@ -141,7 +141,7 @@
 }
 
 .inputField .icon.password{
-    background: url("/images/key.png");
+    background: url("/images/key.webp");
     background-size: cover;
 }
 

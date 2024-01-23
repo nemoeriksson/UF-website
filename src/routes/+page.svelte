@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="/style/homepage.css">
+<head>
+    <link rel="stylesheet" href="/style/homepage.css">
+</head>
 <title>Screaming Plant | Homepage</title>
 
 <script lang="ts">
@@ -25,8 +27,6 @@ let favorites:string[] = [];
 let members = data.members;
 let images = data.imageData;
 
-
-// Loads image sources, descriptions and products from ´data.json´
 onMount(async()=>{
     let storedFavorites = localStorage.getItem('favorites');
     if(storedFavorites){
@@ -261,7 +261,7 @@ function favorite(item:any){
         <div class="productContainer nonMobile">
             <p class="title">Our Product</p>
             <div class="product">
-                <img src='/images/prodPlaceholder.png' alt='Moisture Sensor'>
+                <img src='/images/prodPlaceholder.webp' alt='Moisture Sensor'>
                 <div class="description">
                     <p class="name">Moisture Sensor</p>
                     <div>

@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="/style/login.css">
+<head>
+    <link rel="stylesheet" href="/style/login.css">
+</head>
 <title>Screaming Plant | {capitalize(tab)}</title>
 
 <script lang="ts">

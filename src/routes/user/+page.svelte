@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="style/userpage.css">
+<head>
+    <link rel="stylesheet" href="style/userpage.css">
+</head>
 <script lang='ts'>
 import { enhance } from '$app/forms';
 import { fly } from 'svelte/transition';
