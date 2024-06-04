@@ -27,66 +27,23 @@ export const load = (async ({cookies}) => {
             }
         });
         user_ = token?.user;
-        const user = await prisma.user.findUnique({
-            where: {
-                id: user_?.id
-            },
-            include: {
-                devices: true
-            }
-        });
-        devices = user?.devices;
-        isLoggedIn = token ? true : false;
+        if(user_){
+            const user = await prisma.user.findUnique({
+                where: {
+                    id: user_?.id
+                },
+                include: {
+                    devices: true
+                }
+            });
+            devices = user?.devices;
+            isLoggedIn = token ? true : false;
+        }
     }
 
-    if(!isLoggedIn){
+    if(!isLoggedIn || !user_?.id){
         throw redirect(302, '/login');
     }
 
-    return { email: user_?.email, devices };
+    return { userId: user_.id, email: user_?.email, devices };
 }) satisfies PageServerLoad;
-
-export const actions: Actions = {
-    addDevice: async({request, cookies})=>{
-        const data = await request.formData();
-        const deviceID = data.get('deviceID')?.toString();
-        const deviceName = data.get('deviceName')?.toString();
-        const deviceDescription = data.get('deviceContext')?.toString();
-
-        const device = await prisma.device.findUnique({
-            where: {
-                id: deviceID
-            }
-        });
-
-        const tokenID = cookies.get('token');
-        const token = await prisma.token.findUnique({
-            where: {
-                id: tokenID
-            },
-            include: {
-                user: true
-            }
-        });
-        const user = token?.user;
-        if(user){
-            if(!device){
-                return fail(406, {deviceID: 'Invalid device ID'});
-            }
-
-            else{
-                await prisma.device.update({
-                    where: {
-                        id: deviceID
-                    },
-                    data: {
-                        name: deviceName,
-                        description: deviceDescription || null,
-                        ownerID: user.id
-                    }
-                })
-            }
-        }
-
-    }
-};

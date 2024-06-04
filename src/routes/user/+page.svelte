@@ -1,8 +1,10 @@
 <head>
-    <link rel="stylesheet" href="style/userpage.css">
+    <link rel="stylesheet" href="/style/userpage.css">
 </head>
 <script lang='ts'>
-import { enhance } from '$app/forms';
+import { connectButton, generateGraph, updateGraph } from '$lib';
+import type { Chart } from 'chart.js';
+import { onMount } from 'svelte';
 import { fly } from 'svelte/transition';
 
 export let data;
@@ -10,6 +12,23 @@ export let form;
 
 let showDropdown = false;
 $: devices = data.devices;
+const userId:string = data.userId;
+let graphs:Chart[] = [];
+
+let graphElements:HTMLCanvasElement[] = [];
+onMount(()=>{
+    graphElements.forEach((el:HTMLCanvasElement, i:number) => {
+        graphs[i] = generateGraph(el, devices[i].data);
+    });
+
+    setInterval(updateAllGraphs, 1000);
+});
+
+export function updateAllGraphs(){
+    graphs.forEach((graph, i) => {
+        updateGraph(graph, devices[i].data);
+    });
+}
 
 </script>
 
@@ -37,49 +56,37 @@ $: devices = data.devices;
 
 <section class="container">
     <main>
-        <section class="account">
-            <p>_</p>
-            <p>_</p>
-            <a href="/">STILL PAGE IS STILL IN DEVELOPMENT, PRESS THIS LINK TO GO BACK</a>
-            </section>
-
+        <section class="addDevice">
+            <div aria-hidden="true" on:click={()=>{connectButton(userId)}}>
+                <p class="title">Your Devices</p>
+                <p class="add">
+                    Add Device
+                    <span class="btIcon"></span>
+                </p>
+            </div>
+            <hr>
+        </section>
+        
         <section class="devices">
-            {#each devices as device}
+            {#each devices as device, index}
                 <div class="device">
-                    <p class="title">{device.name}</p>
-                    <p class="category">
-                        {#if device.description}
-                            {device.description}
-                        {/if}
-                    </p>
-                    <div class="stats">
-                        <div class="short">
-                            <p class="stat">Moisture: 0%</p>
-                            <p class="stat">Time Since Water: 10h</p>
-                            <p class="stat">Estimated Watering time: 7d</p>
-                            <button>View</button>
+                    <section class="head">
+                        <div class="stats">
+                            <p class="title">{device.name || `Plant ${index+1}`}</p>
+                            <p class="description">{device.description || 'No description'}</p>
+                            <p class="stat last-time">Time Since Water: {device.data.tsw || 'err'}</p>
+                            <p class="stat">Estimated Watering time: {device.data.ewt || 'err'}</p>
                         </div>
+                        <div class="statusIcon" class:low={device.data.graph.values[device.data.graph.values.length-1] <= device.data.lowAlert}></div>
+                    </section>
+                    <div class="graphContainer">
+                        <canvas class="graph" on:load={()=>{
+                            graphs[index] = generateGraph(graphElements[index], device.data);
+                            console.log(`Graph nr${index+1} loaded`);
+                        }} bind:this={graphElements[index]}></canvas>
                     </div>
                 </div>
             {/each}
-            <div class="addDevice">
-                <p class="title">Add new device</p>
-                <form action="?/addDevice" method="post" use:enhance>
-                    <div class="inputField">
-                        <input required type="text" placeholder="Device ID" name="deviceID">
-                        {#if form?.deviceID}
-                            <span class="error">{form.deviceID}</span>
-                        {/if}
-                        </div>
-                    <div class="inputField">
-                        <input required type="text" placeholder="Name" name="deviceName">
-                    </div>
-                    <div class="inputField">
-                        <input type="text" placeholder="Description (optional)" name="deviceContext">
-                    </div>
-                    <button>Add Device</button>
-                </form>
-            </div>
         </section>
     </main>
 </section>

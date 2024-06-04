@@ -296,7 +296,6 @@ function favorite(item:any){
                 </div>
             </div>
         </div>
-
     </div>
 
     <div class="footer">

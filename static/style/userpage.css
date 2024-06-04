@@ -1,6 +1,7 @@
 .container{
     position: relative;
     height: 100%;
+    width: 100%;
     padding-top: 52px;
     display: flex;
     background: var(--white);
@@ -8,20 +9,130 @@
     gap: 12px;
 }
 
-.devices {
+main{
+    background: var(--white);
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.addDevice{
+    margin-top: 20px;
+}
+
+.addDevice > div{
     display: flex;
-    flex-wrap: wrap;
-    gap: 1%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 42px;
+}
+
+.addDevice .title{
+    font-size: 1.3em;
+}
+
+.addDevice .add{
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.add, .add *{
+    cursor: pointer;
+}
+
+.addDevice .add .btIcon{
+    background: url("/images/svgs/bluetooth.svg");
+    background-size: 80%;
+    border-radius: 50%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: inline-block;
+    aspect-ratio: 1;
+    height: 24px;
+}
+
+hr{
+    outline: none;
+    border: none;
+    height: 1px;
+    width: calc(100% - 84px + 8px);
+    background: var(--gray);
+    display: block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 4px;
+    border-radius: 1px;
+}
+
+.devices {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(auto-fill);
+    grid-row-gap: 24px;
+    grid-column-gap: 24px;
+    padding: 8px 42px;
 }
 
 .devices .device{
-    height: 300px;
+    background: white;
+    border: 1px solid var(--gray);
+    border-radius: 8px;
+}
+
+.device .head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 20px 0 20px;
+}
+
+.device .head .title{
+    font-size: 1.25em;
+    color: var(--green);
+    font-weight: 600;
+}
+
+.device .head .description{
+    font-weight: 500;
+    color: var(--black);
+}
+
+.device .head .stat{
+    color: var(--black);
+}
+
+.device .head .stat.last-time{
+    margin-top: 4px;
+}
+
+.device .head .statusIcon{
+    background: url("/images/svgs/good.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 28px;
     aspect-ratio: 1;
-    background: rgba(var(--black-rgb), .1);
+}
+.device .head .statusIcon.low{
+    background: url("/images/svgs/alert.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.device .graphContainer{
+    height: 240px;
+    aspect-ratio: 2 / 1;
 }
 
 @media only screen and (max-width: 600px) and (orientation: portrait){
     .container{
         padding-top: 60px;
+    }
+    .devices{
+        grid-template-columns: 1fr;
+    }
+    hr{
+        width: calc(100% - 64px);
     }
 }

@@ -26,6 +26,8 @@ html, body{
 :root{
     --black: #101410;
     --black-rgb: 16,20,16;
+    --light-gray: #f1f1f1;
+    --gray: #b5b5b5;
     --white: #f5f5fa;
     --white-rgb: 245,256,250;
     --green: #23714d;
